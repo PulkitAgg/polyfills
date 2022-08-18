@@ -17,5 +17,6 @@ Array.prototype.MyReducer = function (fn, init) {
 }
 
 //Way of calling MyReducer fucntion.
-[1,2,3,4].MyReducer((a,b) => a+b); // Here 1 will be the initial value.
-[1,2,3,4].MyReducer((a,b) => a+b, 10); // Here 10 will be the initial value.
+let arr = [1,2,3,4];
+arr.MyReducer((a,b) => a+b); // Here 1 will be the initial value.
+arr.MyReducer((a,b) => a+b, 10); // Here 10 will be the initial value.
