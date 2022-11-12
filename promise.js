@@ -51,6 +51,22 @@ myPromise.reject = (err) => {
     return new myPromise((res, rej) => rej(err));
 }
 
+myPromise.all = (promises) => {
+    let result = [], len = 0;
+    return new myPromise((resolve, reject) => {
+        promises.map((promise, index) => {
+            promise.then(res => {
+                result[index] = res;
+                len++;
+                if(len === promises.length) {
+                    resolve(result);
+                }
+            }).catch(err => {
+                reject(err);
+            })
+        })
+    })
+}
 
 
 // 1
@@ -105,5 +121,14 @@ myPromise.reject(6).then(data => {
 }).catch(err => {
     console.log("err in direct resolve-", err);
 })
+
+
+// 7
+a = new Promise((res, rej) => res(1))
+b = new Promise((res, rej) => res(2))
+c = new Promise((res, rej) => res(3))
+d = new Promise((res, rej) => res(4))
+myPromise.all([a,b,c,d]).then(d => console.log("data in chaining",d)).catch(err => console.log("err in chaining,", err))
+
 
 
