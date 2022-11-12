@@ -7,7 +7,9 @@ Array.prototype.myMap = function(callback) {
 }
 
 let arr = [1,2,3]
-arr.myMap(function(val, index, arr){
+let res = arr.myMap(function(val, index, arr){
   console.log(val, index, arr);
   return val * 10;
 });
+
+console.log("result of map", res);
