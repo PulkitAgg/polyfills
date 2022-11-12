@@ -9,4 +9,5 @@ Array.prototype.myFilter= function(callback) {
 }
 
 let arr = [1,2,3,4,5,6];
-arr.myFilter(a => a % 2== 0) 
+let res1 = arr.myFilter(a => a % 2== 0);
+console.log("res1 ", res1);
