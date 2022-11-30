@@ -7,12 +7,10 @@ class PubSub {
         if(!this.observers[eventType]) {
             this.observers[eventType] = [];
         }
-        let index = this.observers[eventType].length;
-        this.observers[eventType][index] = callback;
-        
+        this.observers[eventType].push(callback);
         return {
             unsubscribe: () => {
-                this.observers[eventType].splice(index, 1);
+                this.observers[eventType] = this.observers[eventType].filter(fn => fn !== callback);
             }
             
         }
@@ -27,26 +25,35 @@ class PubSub {
 
 let pubsub = new PubSub();
 a1 = pubsub.subscribe("a", (d) => {
-    console.log("a d1", d);
+    console.log("a1", d);
 })
 b1 = pubsub.subscribe("b", (d) => {
-    console.log("b d1", d);
+    console.log("b1", d);
 })
 
 
 pubsub.publish("a", 1);
 pubsub.publish("b", 1);
 a2 = pubsub.subscribe("a", (d) => {
-    console.log("a d2", d);
+    console.log("a2", d);
 })
 
 b2 = pubsub.subscribe("b", (d) => {
-    console.log("b d2", d);
+    console.log("b2", d);
 })
 
 pubsub.publish("a", 2);
 pubsub.publish("b", 2);
-a1.unsubscribe();
+
+a3 = pubsub.subscribe("a", (d) => {
+    console.log("a3", d);
+})
+
+b3 = pubsub.subscribe("b", (d) => {
+    console.log("b3", d);
+})
+
+a2.unsubscribe();
+a3.unsubscribe();
 pubsub.publish("a", 3);
 pubsub.publish("b", 3);
-
